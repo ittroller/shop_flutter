@@ -1,0 +1,65 @@
+import 'package:flutter/foundation.dart';
+
+class CartItem {
+  final String id;
+  final String title;
+  final int quanlity;
+  final double price;
+
+  CartItem(
+      {@required this.id,
+      @required this.title,
+      @required this.quanlity,
+      @required this.price});
+}
+
+class Cart with ChangeNotifier {
+  Map<String, CartItem> _items = {};
+
+  Map<String, CartItem> get items {
+    return {..._items};
+  }
+
+  int get itemCount {
+    return _items.length;
+  }
+
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, cartItem) {
+      total += cartItem.price * cartItem.quanlity;
+    });
+
+    return total;
+  }
+
+  void addItem(
+    String productId,
+    double price,
+    String title,
+  ) {
+    if (_items.containsKey(productId)) {
+      _items.update(
+        productId,
+        (existCartItem) => CartItem(
+          id: existCartItem.id,
+          title: existCartItem.title,
+          quanlity: existCartItem.quanlity + 1,
+          price: existCartItem.price,
+        ),
+      );
+    } else {
+      _items.putIfAbsent(
+        productId,
+        () => CartItem(
+          id: DateTime.now().toString(),
+          title: title,
+          quanlity: 1,
+          price: price,
+        ),
+      );
+    }
+
+    notifyListeners();
+  }
+}
