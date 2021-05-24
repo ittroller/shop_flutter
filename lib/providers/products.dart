@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../models/http_exception.dart';
 
 import './product.dart';
 
@@ -42,7 +43,7 @@ class Products with ChangeNotifier {
   // ];
   List<Product> _items = [];
 
-  var _showFavoritesOnly = false;
+  // var _showFavoritesOnly = false;
 
   List<Product> get items {
     // if (_showFavoritesOnly) {
@@ -151,10 +152,24 @@ class Products with ChangeNotifier {
     // });
   }
 
-  void updateProduct(String id, Product newProduct) {
+  Future<void> updateProduct(String id, Product newProduct) async {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
 
     if (prodIndex >= 0) {
+      var url = Uri.parse(
+          'https://flutter-course-667e6-default-rtdb.firebaseio.com/products/$id.json');
+
+      await http.patch(
+        url,
+        body: json.encode(
+          {
+            'title': newProduct.title,
+            'description': newProduct.description,
+            'imageUrl': newProduct.imageUrl,
+            'price': newProduct.price,
+          },
+        ),
+      );
       _items[prodIndex] = newProduct;
       notifyListeners();
     } else {
@@ -162,9 +177,24 @@ class Products with ChangeNotifier {
     }
   }
 
-  void deleteProduct(String id) {
-    _items.remove((prod) => prod.id == id);
+  Future<void> deleteProduct(String id) async {
+    // _items.remove((prod) => prod.id == id);
+    // notifyListeners();
 
+    var url = Uri.parse(
+        'https://flutter-course-667e6-default-rtdb.firebaseio.com/products/$id.json');
+
+    final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
+    var existingProduct = _items[existingProductIndex];
+
+    _items.removeAt(existingProductIndex);
     notifyListeners();
+    final response = await http.delete(url);
+    if (response.statusCode >= 400) {
+      _items.insert(existingProductIndex, existingProduct);
+      notifyListeners();
+      throw HttpException('Could not delete this product.');
+    }
+    existingProduct = null;
   }
 }
