@@ -6,10 +6,10 @@ class CartItem extends StatelessWidget {
   final String id;
   final String productId;
   final double price;
-  final int quanlity;
+  final int quantity;
   final String title;
 
-  CartItem(this.id, this.productId, this.price, this.quanlity, this.title);
+  CartItem(this.id, this.productId, this.price, this.quantity, this.title);
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,8 @@ class CartItem extends StatelessWidget {
               ),
             ),
             title: Text(title),
-            subtitle: Text('Total: \$${price * quanlity}'),
-            trailing: Text('$quanlity x '),
+            subtitle: Text('Total: \$${price * quantity}'),
+            trailing: Text('$quantity x '),
           ),
         ),
       ),
