@@ -6,12 +6,6 @@ import '../providers/product.dart';
 import '../screens/product_detail.dart';
 
 class ProductItem extends StatelessWidget {
-  // final String id;
-  // final String title;
-  // final String imageUrl;
-
-  // ProductItem(this.id, this.title, this.imageUrl);
-
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
@@ -22,9 +16,6 @@ class ProductItem extends StatelessWidget {
       child: GridTile(
         child: GestureDetector(
           onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(builder: (ctx) => ProductDetailScreen()),
-            // );
             Navigator.of(context).pushNamed(
               ProductDetailScreen.routeName,
               arguments: product.id,
@@ -56,7 +47,6 @@ class ProductItem extends StatelessWidget {
             icon: Icon(Icons.shopping_cart),
             onPressed: () {
               cart.addItem(product.id, product.price, product.title);
-              // Scaffold.of(context).openDrawer();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('123'),
