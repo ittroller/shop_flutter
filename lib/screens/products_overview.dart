@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/app_drawer.dart';
-// import '../providers/products.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/badge.dart';
 import '../providers/cart.dart';
@@ -23,11 +22,6 @@ class _ProductsOverviewState extends State<ProductsOverview> {
 
   @override
   void initState() {
-    // Provider.of<Products>(context).fetchProducts(); // not work
-
-    // Future.delayed(Duration.zero).then((_) {
-    //   Provider.of<Products>(context).fetchProducts();
-    // });
     super.initState();
   }
 

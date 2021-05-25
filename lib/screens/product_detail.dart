@@ -5,10 +5,6 @@ import '../widgets/app_drawer.dart';
 import '../providers/products.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  // final String title;
-
-  // ProductDetailScreen(this.title);
-
   static const routeName = '/product-detail';
 
   @override

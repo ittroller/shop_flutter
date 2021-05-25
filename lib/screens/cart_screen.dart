@@ -30,9 +30,6 @@ class CartScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  // SizedBox(
-                  //   width: 10,
-                  // ),
                   Spacer(),
                   Chip(
                     label: Text(
@@ -109,8 +106,6 @@ class _OrderButtonState extends State<OrderButton> {
             ),
       style: TextButton.styleFrom(
         primary: Colors.white,
-        // backgroundColor: Colors.greenAccent,
-        // onSurface: Colors.grey,
       ),
     );
   }
