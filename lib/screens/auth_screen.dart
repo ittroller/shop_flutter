@@ -146,12 +146,11 @@ class _AuthCardState extends State<AuthCard> {
           _authData['password'],
         );
       }
-
-      Navigator.of(context).pushReplacementNamed('/products-overview');
-    } on HttpException catch (e) {
+    } on HttpException catch (error) {
       var errorMessage = '';
-
-      switch (e.toString()) {
+      print(1);
+      print(error);
+      switch (error.toString()) {
         case 'EMAIL_EXISTS':
           errorMessage = 'This email address is already in use.';
           break;
@@ -175,8 +174,10 @@ class _AuthCardState extends State<AuthCard> {
       if (errorMessage != '') {
         _showErrorDialog(errorMessage);
       }
-    } catch (e) {
-      var errorMessage = 'Could not authenticate you. Please try again late.';
+    } catch (error) {
+      print(2);
+      print(error);
+      const errorMessage = 'Could not authenticate you. Please try again late.';
       _showErrorDialog(errorMessage);
     }
     setState(() {
