@@ -31,7 +31,7 @@ class _ProductsOverviewState extends State<ProductsOverview> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Products>(context).fetchProducts().then((_) {
+      Provider.of<Products>(context, listen: false).fetchProducts().then((_) {
         setState(() {
           _isLoading = false;
         });
